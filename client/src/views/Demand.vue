@@ -155,7 +155,7 @@ export default {
         allForecasts.value = forecastsData
         inventoryItems.value = inventoryData
       } catch (err) {
-        error.value = 'Failed to load demand forecasts: ' + err.message
+        error.value = t('demand.loadError', { message: err.message })
       } finally {
         loading.value = false
       }

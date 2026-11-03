@@ -6,7 +6,7 @@
         ref="menuButton"
         class="menu-button"
         type="button"
-        aria-label="Open navigation menu"
+        :aria-label="t('nav.openMenu')"
         aria-controls="app-sidebar"
         :aria-expanded="drawerOpen ? 'true' : 'false'"
         @click="toggleDrawer"
@@ -33,7 +33,7 @@
         <h1>{{ t('nav.companyName') }}</h1>
         <span class="subtitle">{{ t('nav.subtitle') }}</span>
       </div>
-      <nav class="nav-list" aria-label="Primary">
+      <nav class="nav-list" :aria-label="t('nav.primary')">
           <router-link to="/" :class="{ active: $route.path === '/' }">
             <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="11" y="3" width="6" height="6" rx="1"/><rect x="3" y="11" width="6" height="6" rx="1"/><rect x="11" y="11" width="6" height="6" rx="1"/></svg>
             <span>{{ t('nav.overview') }}</span>
@@ -56,7 +56,7 @@
           </router-link>
           <router-link to="/reports" :class="{ active: $route.path === '/reports' }">
             <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h7l3 3v11H5z"/><path d="M12 3v3h3M8 10h4M8 13h4"/></svg>
-            <span>Reports</span>
+            <span>{{ t('nav.reports') }}</span>
           </router-link>
       </nav>
       <div class="sidebar-bottom">

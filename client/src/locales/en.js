@@ -7,7 +7,10 @@ export default {
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
     companyName: 'Catalyst Components',
-    subtitle: 'Inventory Management System'
+    subtitle: 'Inventory Management System',
+    reports: 'Reports',
+    openMenu: 'Open navigation menu',
+    primary: 'Primary'
   },
 
   // Dashboard
@@ -27,6 +30,8 @@ export default {
     summary: {
       title: 'Summary'
     },
+    loadError: 'Failed to load dashboard data: {message}',
+    actions: 'Actions',
     orderHealth: {
       title: 'Order Health',
       totalOrders: 'Total Orders',
@@ -84,6 +89,13 @@ export default {
     totalValue: 'Total Value',
     lowStockItems: 'Low Stock Items',
     warehouses: 'Warehouses',
+    loadError: 'Failed to load inventory: {message}',
+    detail: {
+      title: 'Inventory Item Details',
+      stockLevel: 'Stock Level',
+      vsReorderPoint: 'vs. reorder point',
+      unitsRemaining: 'Units Remaining'
+    },
     table: {
       sku: 'SKU',
       itemName: 'Item Name',
@@ -112,6 +124,7 @@ export default {
     onTimeDelivery: 'On-Time Delivery',
     itemsCount: '{count} items',
     quantity: 'Qty',
+    loadError: 'Failed to load orders: {message}',
     table: {
       orderNumber: 'Order Number',
       orderId: 'Order ID',
@@ -141,6 +154,14 @@ export default {
     costBreakdown: 'Procurement + Operational + Labor + Overhead',
     margin: 'margin',
     perOrderRevenue: 'Per order revenue',
+    loadError: 'Failed to load financial data: {message}',
+    percentOfTotal: '{percent}% of total',
+    costDetail: {
+      title: '{month} Cost Breakdown'
+    },
+    transactionDetails: {
+      title: 'Transaction Details'
+    },
     revenueVsCosts: {
       title: 'Monthly Revenue vs Costs',
       revenue: 'Revenue',
@@ -176,6 +197,7 @@ export default {
     decreasingDemand: 'Decreasing Demand',
     itemsCount: '{count} items',
     more: 'more...',
+    loadError: 'Failed to load demand forecasts: {message}',
     demandForecasts: 'Demand Forecasts',
     table: {
       sku: 'SKU',
@@ -195,7 +217,8 @@ export default {
     category: 'Category',
     orderStatus: 'Order Status',
     all: 'All',
-    allMonths: 'All Months'
+    allMonths: 'All Months',
+    reset: 'Reset all filters'
   },
 
   // Statuses
@@ -206,7 +229,8 @@ export default {
     backordered: 'Backordered',
     inStock: 'In Stock',
     lowStock: 'Low Stock',
-    adequate: 'Adequate'
+    adequate: 'Adequate',
+    outOfStock: 'Out of Stock'
   },
 
   // Trends
@@ -301,7 +325,19 @@ export default {
     priority: 'Priority',
     dueDate: 'Due Date',
     addTask: 'Add Task',
-    noTasks: 'No tasks yet. Add your first task above!'
+    noTasks: 'No tasks yet. Add your first task above!',
+    deleteTask: 'Delete task',
+    statusLabels: {
+      completed: 'Completed',
+      overdue: 'Overdue',
+      dueSoon: 'Due Soon',
+      upcoming: 'Upcoming'
+    }
+  },
+
+  // Auth
+  auth: {
+    logoutNotice: 'Logout functionality - in a real app, this would clear session and redirect to login'
   },
 
   // Language
@@ -309,6 +345,61 @@ export default {
     english: 'English',
     japanese: 'Japanese',
     selectLanguage: 'Select Language'
+  },
+
+  // Backlog
+  backlog: {
+    title: 'Backlog Management',
+    description: 'Track and resolve inventory shortages',
+    loading: 'Loading backlog...',
+    loadError: 'Failed to load backlog: {message}',
+    highPriority: 'High Priority',
+    mediumPriority: 'Medium Priority',
+    lowPriority: 'Low Priority',
+    priorityLabel: '{priority} Priority',
+    totalItems: 'Total Backlog Items',
+    itemsTitle: 'Backlog Items',
+    createPO: 'Create PO',
+    viewPO: 'View PO',
+    noItems: 'No backlog items - all orders can be fulfilled!',
+    detail: {
+      title: 'Inventory Shortage Details',
+      shortageAmount: 'Shortage Amount',
+      itemSku: 'Item SKU',
+      expectedDate: 'Expected Date'
+    }
+  },
+
+  // Reports
+  reports: {
+    title: 'Performance Reports',
+    description: 'View quarterly performance metrics and monthly trends',
+    loading: 'Loading reports...',
+    loadError: 'Failed to load reports: {message}',
+    quarterly: {
+      title: 'Quarterly Performance',
+      quarter: 'Quarter',
+      fulfillmentRate: 'Fulfillment Rate'
+    },
+    monthlyTrend: {
+      title: 'Monthly Revenue Trend'
+    },
+    monthOverMonth: {
+      title: 'Month-over-Month Analysis',
+      month: 'Month',
+      growthRate: 'Growth Rate'
+    },
+    totalRevenueYtd: 'Total Revenue (YTD)',
+    avgMonthlyRevenue: 'Avg Monthly Revenue',
+    totalOrdersYtd: 'Total Orders (YTD)',
+    bestQuarter: 'Best Performing Quarter'
+  },
+
+  // Product Detail Modal
+  productDetail: {
+    title: 'Product Details',
+    currentStock: 'Current Stock',
+    firstOrderDate: 'First Order Date'
   },
 
   // Common
@@ -323,6 +414,11 @@ export default {
     search: 'Search',
     filter: 'Filter',
     export: 'Export',
-    items: 'items'
+    items: 'items',
+    actions: 'Actions',
+    units: '{count} units',
+    skuLabel: 'SKU: {sku}',
+    na: 'N/A',
+    unknown: 'Unknown'
   }
 }

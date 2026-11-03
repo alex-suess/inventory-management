@@ -85,7 +85,7 @@
                     />
                     <span class="task-title" @click="$emit('toggle-task', task.id)">{{ task.title }}</span>
                   </div>
-                  <button @click="$emit('delete-task', task.id)" class="task-delete-btn" title="Delete task">
+                  <button @click="$emit('delete-task', task.id)" class="task-delete-btn" :title="t('tasks.deleteTask')">
                     ×
                   </button>
                 </div>
@@ -210,14 +210,12 @@ export default {
     }
 
     const getStatusText = (dueDate, status) => {
-      const isJapanese = currentLocale.value === 'ja'
-
-      if (status === 'completed') return isJapanese ? '完了' : 'Completed'
+      if (status === 'completed') return t('tasks.statusLabels.completed')
 
       const statusClass = getStatusClass(dueDate, status)
-      if (statusClass === 'overdue') return isJapanese ? '期限超過' : 'Overdue'
-      if (statusClass === 'urgent') return isJapanese ? 'もうすぐ期限' : 'Due Soon'
-      return isJapanese ? '予定' : 'Upcoming'
+      if (statusClass === 'overdue') return t('tasks.statusLabels.overdue')
+      if (statusClass === 'urgent') return t('tasks.statusLabels.dueSoon')
+      return t('tasks.statusLabels.upcoming')
     }
 
     const translatePriority = (priority) => {

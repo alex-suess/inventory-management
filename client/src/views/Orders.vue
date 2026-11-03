@@ -118,7 +118,7 @@ export default {
           return dateA - dateB
         })
       } catch (err) {
-        error.value = 'Failed to load orders: ' + err.message
+        error.value = t('orders.loadError', { message: err.message })
       } finally {
         loading.value = false
       }

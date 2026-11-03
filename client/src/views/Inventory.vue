@@ -159,7 +159,7 @@ export default {
           category: filters.category
         })
       } catch (err) {
-        error.value = 'Failed to load inventory: ' + err.message
+        error.value = t('inventory.loadError', { message: err.message })
       } finally {
         loading.value = false
       }

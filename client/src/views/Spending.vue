@@ -56,8 +56,8 @@
             <div class="chart-area">
               <div v-for="month in monthlyRevenue" :key="month.month" class="bar-group-revenue">
                 <div class="revenue-bars">
-                  <div class="revenue-bar" :style="{ height: getRevenueBarHeight(month.revenue) + '%' }" :title="`Revenue: ${currencySymbol}${month.revenue.toLocaleString()}`"></div>
-                  <div class="cost-bar" :style="{ height: getRevenueBarHeight(month.costs) + '%' }" :title="`Costs: ${currencySymbol}${month.costs.toLocaleString()}`"></div>
+                  <div class="revenue-bar" :style="{ height: getRevenueBarHeight(month.revenue) + '%' }" :title="`${t('finance.revenueVsCosts.revenue')}: ${currencySymbol}${month.revenue.toLocaleString()}`"></div>
+                  <div class="cost-bar" :style="{ height: getRevenueBarHeight(month.costs) + '%' }" :title="`${t('finance.revenueVsCosts.costs')}: ${currencySymbol}${month.costs.toLocaleString()}`"></div>
                 </div>
                 <span class="bar-label">{{ translateMonth(month.month) }}</span>
               </div>
@@ -90,10 +90,10 @@
             <div class="chart-area">
               <div v-for="month in monthlySpending" :key="month.month" class="bar-group">
                 <div class="stacked-bar" @click="showCostDetail(month)">
-                  <div class="bar-segment procurement" :style="{ height: getBarHeight(month.procurement) + '%' }" :title="`Procurement: ${currencySymbol}${month.procurement.toLocaleString()}`"></div>
-                  <div class="bar-segment operational" :style="{ height: getBarHeight(month.operational) + '%' }" :title="`Operational: ${currencySymbol}${month.operational.toLocaleString()}`"></div>
-                  <div class="bar-segment labor" :style="{ height: getBarHeight(month.labor) + '%' }" :title="`Labor: ${currencySymbol}${month.labor.toLocaleString()}`"></div>
-                  <div class="bar-segment overhead" :style="{ height: getBarHeight(month.overhead) + '%' }" :title="`Overhead: ${currencySymbol}${month.overhead.toLocaleString()}`"></div>
+                  <div class="bar-segment procurement" :style="{ height: getBarHeight(month.procurement) + '%' }" :title="`${t('finance.monthlyCostFlow.procurement')}: ${currencySymbol}${month.procurement.toLocaleString()}`"></div>
+                  <div class="bar-segment operational" :style="{ height: getBarHeight(month.operational) + '%' }" :title="`${t('finance.monthlyCostFlow.operational')}: ${currencySymbol}${month.operational.toLocaleString()}`"></div>
+                  <div class="bar-segment labor" :style="{ height: getBarHeight(month.labor) + '%' }" :title="`${t('finance.monthlyCostFlow.labor')}: ${currencySymbol}${month.labor.toLocaleString()}`"></div>
+                  <div class="bar-segment overhead" :style="{ height: getBarHeight(month.overhead) + '%' }" :title="`${t('finance.monthlyCostFlow.overhead')}: ${currencySymbol}${month.overhead.toLocaleString()}`"></div>
                 </div>
                 <span class="bar-label">{{ translateMonth(month.month) }}</span>
               </div>
@@ -364,7 +364,7 @@ export default {
         allTransactions.value = transactionsRes
         allOrders.value = ordersRes
       } catch (err) {
-        error.value = 'Failed to load financial data: ' + err.message
+        error.value = t('finance.loadError', { message: err.message })
       } finally {
         loading.value = false
       }
@@ -449,7 +449,7 @@ export default {
 
     const handleTransactionClick = (transaction) => {
       console.log('Transaction clicked:', transaction)
-      alert(`Transaction Details:\n\nID: ${transaction.id}\nDescription: ${transaction.description}\nVendor: ${transaction.vendor}\nDate: ${formatDateShort(transaction.date)}\nAmount: $${transaction.amount.toLocaleString()}`)
+      alert(`${t('finance.transactionDetails.title')}:\n\n${t('finance.transactions.id')}: ${transaction.id}\n${t('finance.transactions.description')}: ${transaction.description}\n${t('finance.transactions.vendor')}: ${transaction.vendor}\n${t('finance.transactions.date')}: ${formatDateShort(transaction.date)}\n${t('finance.transactions.amount')}: $${transaction.amount.toLocaleString()}`)
     }
 
     const showCostDetail = (monthData) => {

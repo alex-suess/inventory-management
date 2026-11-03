@@ -7,7 +7,10 @@ export default {
     finance: '財務',
     demandForecast: '需要予測',
     companyName: '触媒コンポーネンツ',
-    subtitle: '在庫管理システム'
+    subtitle: '在庫管理システム',
+    reports: 'レポート',
+    openMenu: 'ナビゲーションメニューを開く',
+    primary: 'メインナビゲーション'
   },
 
   // Dashboard
@@ -27,6 +30,8 @@ export default {
     summary: {
       title: '概要'
     },
+    loadError: 'ダッシュボードデータの読み込みに失敗しました: {message}',
+    actions: '操作',
     orderHealth: {
       title: '注文状況',
       totalOrders: '総注文数',
@@ -84,6 +89,13 @@ export default {
     totalValue: '総価値',
     lowStockItems: '在庫僅少品目',
     warehouses: '倉庫',
+    loadError: '在庫の読み込みに失敗しました: {message}',
+    detail: {
+      title: '在庫品目の詳細',
+      stockLevel: '在庫レベル',
+      vsReorderPoint: '再注文点との比較',
+      unitsRemaining: '残数量'
+    },
     table: {
       sku: 'SKU',
       itemName: '品目名',
@@ -112,6 +124,7 @@ export default {
     onTimeDelivery: '定時配達',
     itemsCount: '{count}件',
     quantity: '数量',
+    loadError: '注文の読み込みに失敗しました: {message}',
     table: {
       orderNumber: '注文番号',
       orderId: '注文ID',
@@ -141,6 +154,14 @@ export default {
     costBreakdown: '調達 + 運営 + 人件費 + 間接費',
     margin: 'マージン',
     perOrderRevenue: '注文あたりの収益',
+    loadError: '財務データの読み込みに失敗しました: {message}',
+    percentOfTotal: '全体の{percent}%',
+    costDetail: {
+      title: '{month}のコスト内訳'
+    },
+    transactionDetails: {
+      title: '取引の詳細'
+    },
     revenueVsCosts: {
       title: '月別収益対コスト',
       revenue: '収益',
@@ -176,6 +197,7 @@ export default {
     decreasingDemand: '需要減少',
     itemsCount: '{count}件',
     more: 'さらに...',
+    loadError: '需要予測の読み込みに失敗しました: {message}',
     demandForecasts: '需要予測',
     table: {
       sku: 'SKU',
@@ -195,7 +217,8 @@ export default {
     category: 'カテゴリ',
     orderStatus: '注文ステータス',
     all: 'すべて',
-    allMonths: 'すべての月'
+    allMonths: 'すべての月',
+    reset: 'すべてのフィルターをリセット'
   },
 
   // Statuses
@@ -206,7 +229,8 @@ export default {
     backordered: 'バックオーダー',
     inStock: '在庫あり',
     lowStock: '在庫僅少',
-    adequate: '適量'
+    adequate: '適量',
+    outOfStock: '在庫切れ'
   },
 
   // Trends
@@ -301,7 +325,19 @@ export default {
     priority: '優先度',
     dueDate: '期限',
     addTask: 'タスクを追加',
-    noTasks: 'タスクがありません。上記からタスクを追加してください！'
+    noTasks: 'タスクがありません。上記からタスクを追加してください！',
+    deleteTask: 'タスクを削除',
+    statusLabels: {
+      completed: '完了',
+      overdue: '期限超過',
+      dueSoon: 'もうすぐ期限',
+      upcoming: '予定'
+    }
+  },
+
+  // Auth
+  auth: {
+    logoutNotice: 'ログアウト機能 - 実際のアプリではセッションを破棄してログイン画面にリダイレクトします'
   },
 
   // Language
@@ -309,6 +345,61 @@ export default {
     english: 'English',
     japanese: '日本語',
     selectLanguage: '言語を選択'
+  },
+
+  // Backlog
+  backlog: {
+    title: 'バックログ管理',
+    description: '在庫不足の追跡と解決',
+    loading: 'バックログを読み込み中...',
+    loadError: 'バックログの読み込みに失敗しました: {message}',
+    highPriority: '高優先度',
+    mediumPriority: '中優先度',
+    lowPriority: '低優先度',
+    priorityLabel: '優先度: {priority}',
+    totalItems: 'バックログ総品目数',
+    itemsTitle: 'バックログ品目',
+    createPO: '発注書を作成',
+    viewPO: '発注書を表示',
+    noItems: 'バックログ品目なし - すべての注文を履行できます！',
+    detail: {
+      title: '在庫不足の詳細',
+      shortageAmount: '不足数量',
+      itemSku: '品目SKU',
+      expectedDate: '予定日'
+    }
+  },
+
+  // Reports
+  reports: {
+    title: 'パフォーマンスレポート',
+    description: '四半期の業績指標と月次トレンドを表示',
+    loading: 'レポートを読み込み中...',
+    loadError: 'レポートの読み込みに失敗しました: {message}',
+    quarterly: {
+      title: '四半期業績',
+      quarter: '四半期',
+      fulfillmentRate: '履行率'
+    },
+    monthlyTrend: {
+      title: '月別収益トレンド'
+    },
+    monthOverMonth: {
+      title: '前月比分析',
+      month: '月',
+      growthRate: '成長率'
+    },
+    totalRevenueYtd: '総収益（年初来）',
+    avgMonthlyRevenue: '月平均収益',
+    totalOrdersYtd: '総注文数（年初来）',
+    bestQuarter: '最高業績の四半期'
+  },
+
+  // Product Detail Modal
+  productDetail: {
+    title: '製品詳細',
+    currentStock: '現在の在庫',
+    firstOrderDate: '初回注文日'
   },
 
   // Common
@@ -323,7 +414,12 @@ export default {
     search: '検索',
     filter: 'フィルター',
     export: 'エクスポート',
-    items: '件'
+    items: '件',
+    actions: '操作',
+    units: '{count}個',
+    skuLabel: 'SKU: {sku}',
+    na: '該当なし',
+    unknown: '不明'
   },
 
   // Product Names
