@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 1: The snapshot-ref-action loop</title>
+<link rel="stylesheet" href="../assets/style.css"></head><body>
+<h1>The snapshot, ref, action loop</h1>
+<p class="kicker">Lesson 1 &middot; Playwright with Claude &middot; about 10 minutes</p>
+
+<p><strong>Win:</strong> you will prompt Claude to drive the inventory app in a real browser, and explain each step it takes.</p>
+
+<h2>Recall first</h2>
+<details><summary>Before reading: what do you already know?</summary>
+<p>Write down, from memory, how a Playwright script finds and clicks a button. (Locators like <code>getByRole</code>.) Hold that thought: Claude does it differently.</p></details>
+
+<h2>1. Claude does not see pixels</h2>
+<p>The Playwright MCP server "uses Playwright's accessibility tree, not pixel-based input" (<a href="https://github.com/microsoft/playwright-mcp">README</a>). The tool <code>browser_snapshot</code> returns the page as text: roles, names and a short ref such as <code>ref=e5</code> for each element (<a href="https://playwright.dev/docs/getting-started-mcp">docs</a>). No vision model is needed.</p>
+
+<h2>2. The loop</h2>
+<pre>browser_navigate  -> open a URL
+browser_snapshot  -> read the tree, get refs
+browser_click / browser_type / browser_fill_form  -> act on a ref
+browser_snapshot  -> check what changed</pre>
+<p>Refs belong to one snapshot. After the page changes, the old refs may be stale, so Claude snapshots again. If a run gets stuck, a stale ref is the first suspect. This is my reading of the docs, not a documented guarantee: verify it in the exercise.</p>
+
+<h2>3. Do it</h2>
+<ol>
+<li>Start the app: run <code>/start</code> in Claude Code. Frontend is <code>http://localhost:3000</code>.</li>
+<li>Run <code>/mcp</code> and confirm <code>playwright</code> shows as connected.</li>
+<li>Prompt: <em>"Use Playwright to open http://localhost:3000, take a snapshot, and list the filters you find. Then change the Warehouse filter and tell me what changed on the page."</em></li>
+<li>Watch the tool calls (named <code>mcp__playwright__browser_*</code>). Match each one to the loop above.</li>
+</ol>
+<p class="note">This repo's <code>.mcp.json</code> pins <code>@playwright/mcp@0.0.37</code>, while the docs show <code>@latest</code>. Tool names can differ between versions, so trust what your session lists.</p>
+
+<h2>4. Check yourself</h2>
+<div class="q" data-answer="1" data-explain="The default mode reads the accessibility tree, with refs for elements."><p>What does <code>browser_snapshot</code> return by default?</p>
+<button>Pixel screenshot of the viewport</button><button>Accessibility tree with element refs</button><button>Raw HTML source of page</button><button>Network log of all requests</button></div>
+
+<div class="q" data-answer="3" data-explain="--headless hides the window. The default is headed."><p>Which flag runs the browser with no visible window?</p>
+<button>--isolated</button><button>--caps=vision</button><button>--browser=webkit</button><button>--headless</button></div>
+
+<div class="q" data-answer="0" data-explain="Element actions take a ref taken from a snapshot, so Claude snapshots first."><p>Why does a click need a snapshot first?</p>
+<button>Refs come from the latest snapshot</button><button>Clicks only work in vision mode</button><button>Snapshots download the browser binary first</button><button>Playwright refuses every click without screenshots</button></div>
+
+<div class="q" data-answer="2" data-explain="--isolated keeps the profile in memory, so state is lost when the session closes."><p>What does <code>--isolated</code> do to the browser profile?</p>
+<button>Saves it to disk permanently</button><button>Shares it between all projects</button><button>Keeps it in memory only</button><button>Encrypts cookies with a key</button></div>
+
+<h2>Read next</h2>
+<p>Primary source: the <a href="https://github.com/microsoft/playwright-mcp">Playwright MCP README</a>, sections on snapshot mode and tools. Quick reference: <a href="../reference/playwright-mcp-cheatsheet.html">cheat sheet</a>.</p>
+<p class="note"><strong>Questions?</strong> Ask your teacher (Claude) anything unclear, for example "why did that click fail?" Paste the odd output and ask.</p>
+<nav class="lesson-nav">Next lesson will cover config: profiles, headless, and what <code>--caps</code> unlocks.</nav>
+<script src="../assets/quiz.js"></script></body></html>

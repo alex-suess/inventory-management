@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Playwright MCP cheat sheet</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>table{border-collapse:collapse;width:100%;font-size:.9em}td,th{border-bottom:1px solid var(--line);padding:.3rem .5rem;text-align:left;vertical-align:top}</style></head><body>
+<h1>Playwright MCP cheat sheet</h1>
+<p class="kicker">Sources: <a href="https://github.com/microsoft/playwright-mcp">README</a>, <a href="https://playwright.dev/docs/getting-started-mcp">docs</a>, <a href="https://code.claude.com/docs/en/mcp">Claude Code MCP docs</a>. Version note: this repo pins 0.0.37.</p>
+
+<h2>The loop</h2>
+<pre>browser_navigate -> browser_snapshot -> browser_click / type / fill_form -> browser_snapshot</pre>
+
+<h2>Add the server to Claude Code</h2>
+<pre>claude mcp add playwright -- npx @playwright/mcp@latest
+claude mcp list        # health
+/mcp                   # inside a session</pre>
+<p>Scopes: <code>local</code> (default, <code>~/.claude.json</code>), <code>project</code> (<code>.mcp.json</code>, shared), <code>user</code> (all projects). Tool names look like <code>mcp__playwright__browser_click</code>.</p>
+
+<h2>Flags</h2>
+<table>
+<tr><th>Flag</th><th>Effect</th></tr>
+<tr><td><code>--headless</code></td><td>No visible window (default is headed)</td></tr>
+<tr><td><code>--browser</code></td><td><code>chrome</code>, <code>firefox</code>, <code>webkit</code>, <code>msedge</code></td></tr>
+<tr><td><code>--isolated</code></td><td>In-memory profile; state lost on close</td></tr>
+<tr><td><code>--user-data-dir</code></td><td>Custom persistent profile; one browser per profile at a time</td></tr>
+<tr><td><code>--storage-state</code></td><td>Load cookies and local storage into an isolated session</td></tr>
+<tr><td><code>--caps</code></td><td>Extra tools: <code>vision</code>, <code>pdf</code>, <code>devtools</code>, plus config, network, storage, testing</td></tr>
+<tr><td><code>--allowed-origins</code> / <code>--blocked-origins</code></td><td>Restrict sites</td></tr>
+</table>
+
+<h2>Security</h2>
+<p>The README states Playwright MCP is not a security boundary. <code>browser_run_code_unsafe</code> runs arbitrary JavaScript in the server process.</p>
+</body></html>
