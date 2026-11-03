@@ -11,6 +11,10 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">{{ t('inventory.stockLevels') }} ({{ filteredItems.length }} {{ t('inventory.skus') }})</h3>
+          <label class="low-stock-toggle">
+            <input v-model="lowStockOnly" type="checkbox" />
+            <span>{{ t('alerts.lowStockOnly') }}</span>
+          </label>
           <div class="search-box">
             <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -53,6 +57,7 @@
                 v-for="item in filteredItems"
                 :key="item.id"
                 class="clickable-row"
+                :class="{ 'low-stock-row': getStockStatusKey(item) === 'lowStock' }"
                 @click="showItemDetail(item)"
               >
                 <td><strong>{{ item.sku }}</strong></td>
@@ -106,6 +111,7 @@ export default {
     const error = ref(null)
     const items = ref([])
     const searchQuery = ref('')
+    const lowStockOnly = ref(false)
 
     // Modal state
     const showItemModal = ref(false)
@@ -138,6 +144,11 @@ export default {
         filtered = filtered.filter(item =>
           item.name.toLowerCase().includes(query)
         )
+      }
+
+      // Low-stock toggle reuses the same tier as the row badge, so the two never disagree
+      if (lowStockOnly.value) {
+        filtered = filtered.filter(item => getStockStatusKey(item) === 'lowStock')
       }
 
       // Sort by stock status: Low Stock first, then Adequate, then In Stock
@@ -209,6 +220,8 @@ export default {
       error,
       items,
       searchQuery,
+      lowStockOnly,
+      getStockStatusKey,
       filteredItems,
       getStockStatus,
       getStockStatusClass,
@@ -331,6 +344,23 @@ export default {
 .clickable-row {
   cursor: pointer;
   transition: background-color 0.15s ease;
+}
+
+.low-stock-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  font-size: 0.875rem;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Left accent + tint for rows at or below reorder point */
+.low-stock-row {
+  background: #fef2f2;
+  box-shadow: inset 3px 0 0 var(--color-danger);
 }
 
 .clickable-row:hover {

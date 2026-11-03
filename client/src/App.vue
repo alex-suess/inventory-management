@@ -60,6 +60,17 @@
           </router-link>
       </nav>
       <div class="sidebar-bottom">
+        <button
+          type="button"
+          class="alerts-button"
+          :aria-label="t('alerts.buttonAria', { count: lowStockCount })"
+          @click="showAlerts = true"
+        >
+          <svg class="nav-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l7.5 13h-15z"/><path d="M10 8.5v3.5M10 14.25v.01"/></svg>
+          <span class="alerts-label">{{ t('alerts.buttonLabel') }}</span>
+          <!-- Badge hidden at 0 -->
+          <span v-if="lowStockCount > 0" class="badge danger alerts-badge" aria-hidden="true">{{ lowStockCount }}</span>
+        </button>
         <LanguageSwitcher />
         <ProfileMenu
           @show-profile-details="showProfileDetails = true"
@@ -80,6 +91,11 @@
     <ProfileDetailsModal
       :is-open="showProfileDetails"
       @close="showProfileDetails = false"
+    />
+
+    <LowStockAlertsModal
+      :is-open="showAlerts"
+      @close="showAlerts = false"
     />
 
     <TasksModal
@@ -103,6 +119,8 @@ import FilterBar from './components/FilterBar.vue'
 import ProfileMenu from './components/ProfileMenu.vue'
 import ProfileDetailsModal from './components/ProfileDetailsModal.vue'
 import TasksModal from './components/TasksModal.vue'
+import LowStockAlertsModal from './components/LowStockAlertsModal.vue'
+import { useLowStockAlerts } from './composables/useLowStockAlerts'
 import LanguageSwitcher from './components/LanguageSwitcher.vue'
 
 export default {
@@ -112,6 +130,7 @@ export default {
     ProfileMenu,
     ProfileDetailsModal,
     TasksModal,
+    LowStockAlertsModal,
     LanguageSwitcher
   },
   setup() {
@@ -119,6 +138,8 @@ export default {
     const { t } = useI18n()
     const showProfileDetails = ref(false)
     const showTasks = ref(false)
+    const showAlerts = ref(false)
+    const { count: lowStockCount, refresh: refreshLowStock } = useLowStockAlerts()
     const apiTasks = ref([])
     const route = useRoute()
 
@@ -237,11 +258,14 @@ export default {
     }
 
     onMounted(loadTasks)
+    onMounted(refreshLowStock)
 
     return {
       t,
       showProfileDetails,
       showTasks,
+      showAlerts,
+      lowStockCount,
       drawerOpen,
       menuButton,
       sidebar,
@@ -460,6 +484,44 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+}
+
+/* Alerts button: styled like a nav link, badge pushed to the right */
+.alerts-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  height: 40px;
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--sidebar-text);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  text-align: left;
+}
+
+.alerts-button:hover {
+  background: var(--sidebar-hover-bg);
+  color: #ffffff;
+}
+
+.alerts-label {
+  flex: 1;
+}
+
+.alerts-badge {
+  background: var(--color-danger);
+  color: #ffffff;
+  padding: 0 var(--space-2);
+  min-width: 1.5rem;
+  text-align: center;
+  line-height: 1.5rem;
+  border-radius: var(--radius-full);
 }
 
 .mobile-bar,

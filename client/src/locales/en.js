@@ -318,6 +318,22 @@ export default {
   },
 
   // Tasks Modal
+  alerts: {
+    title: 'Low Stock Alerts',
+    panelHeading: 'Items at or below reorder point',
+    buttonLabel: 'Low stock alerts',
+    buttonAria: 'Open low stock alerts, {count} items',
+    closeAria: 'Close low stock alerts',
+    bannerText: '{count} items are at or below their reorder point.',
+    bannerLink: 'View inventory',
+    viewInventory: 'View in inventory',
+    empty: 'No items are at or below their reorder point.',
+    loading: 'Loading alerts...',
+    quantityOfReorder: '{qty} / {reorder}',
+    quantityLabel: 'On hand / reorder point',
+    lowStockOnly: 'Low stock only',
+    loadError: 'Failed to load low stock alerts: {message}'
+  },
   tasks: {
     title: 'My Tasks',
     taskTitle: 'Task Title',

@@ -46,6 +46,10 @@ def apply_filters(items: list, warehouse: Optional[str] = None, category: Option
 
     return filtered
 
+def is_low_stock(item: dict) -> bool:
+    """Single definition of low stock: at or below the reorder point"""
+    return item["quantity_on_hand"] <= item["reorder_point"]
+
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -133,6 +137,19 @@ def get_inventory(
     """Get all inventory items with optional filtering"""
     return apply_filters(inventory_items, warehouse, category)
 
+# Must be declared before /api/inventory/{item_id}, otherwise "low-stock" is
+# captured as an item id and the request returns 404.
+@app.get("/api/inventory/low-stock", response_model=List[InventoryItem])
+def get_low_stock_items(
+    warehouse: Optional[str] = None,
+    category: Optional[str] = None
+):
+    """Get items at or below their reorder point, most critical first"""
+    low_stock = [item for item in apply_filters(inventory_items, warehouse, category) if is_low_stock(item)]
+    # Ratio of stock to reorder point; a zero reorder point sorts as fully depleted
+    low_stock.sort(key=lambda item: item["quantity_on_hand"] / item["reorder_point"] if item["reorder_point"] else 0)
+    return low_stock
+
 @app.get("/api/inventory/{item_id}", response_model=InventoryItem)
 def get_inventory_item(item_id: str):
     """Get a specific inventory item"""
@@ -195,7 +212,7 @@ def get_dashboard_summary(
     filtered_orders = filter_by_month(filtered_orders, month)
 
     total_inventory_value = sum(item["quantity_on_hand"] * item["unit_cost"] for item in filtered_inventory)
-    low_stock_items = len([item for item in filtered_inventory if item["quantity_on_hand"] <= item["reorder_point"]])
+    low_stock_items = len([item for item in filtered_inventory if is_low_stock(item)])
     pending_orders = len([order for order in filtered_orders if order["status"] in ["Processing", "Backordered"]])
     total_backlog_items = len(backlog_items)
 

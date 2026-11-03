@@ -318,6 +318,22 @@ export default {
   },
 
   // Tasks Modal
+  alerts: {
+    title: '在庫僅少アラート',
+    panelHeading: '発注点以下の品目',
+    buttonLabel: '在庫僅少アラート',
+    buttonAria: '在庫僅少アラートを開く（{count}件）',
+    closeAria: '在庫僅少アラートを閉じる',
+    bannerText: '{count}件の品目が発注点以下です。',
+    bannerLink: '在庫を表示',
+    viewInventory: '在庫で表示',
+    empty: '発注点以下の品目はありません。',
+    loading: 'アラートを読み込み中...',
+    quantityOfReorder: '{qty} / {reorder}',
+    quantityLabel: '現在庫 / 発注点',
+    lowStockOnly: '在庫僅少のみ',
+    loadError: '在庫僅少アラートの読み込みに失敗しました: {message}'
+  },
   tasks: {
     title: 'マイタスク',
     taskTitle: 'タスク名',

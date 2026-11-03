@@ -12,6 +12,16 @@ export const api = {
     return response.data
   },
 
+  async getLowStockItems(filters = {}) {
+    // Inventory has no time dimension, so only warehouse and category apply
+    const params = new URLSearchParams()
+    if (filters.warehouse && filters.warehouse !== 'all') params.append('warehouse', filters.warehouse)
+    if (filters.category && filters.category !== 'all') params.append('category', filters.category)
+
+    const response = await axios.get(`${API_BASE_URL}/inventory/low-stock?${params.toString()}`)
+    return response.data
+  },
+
   async getInventoryItem(id) {
     const response = await axios.get(`${API_BASE_URL}/inventory/${id}`)
     return response.data
