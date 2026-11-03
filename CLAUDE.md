@@ -18,6 +18,7 @@ Use the Task tool with these specialized subagents for appropriate tasks:
 
 ### Skills
 - **backend-api-test** skill: Use when writing or modifying tests in `tests/backend` directory with pytest and FastAPI TestClient
+- **saas-sidebar-redesign** skill: Use when redesigning the Vue UI into a SaaS-style layout with a left sidebar, design tokens and responsive drawer
 
 ### MCP Tools
 - **ALWAYS use GitHub MCP tools** (`mcp__github__*`) for ALL GitHub operations
@@ -74,3 +75,6 @@ npm install && npm run dev
 - Status: green/blue/yellow/red
 - Charts: Custom SVG, CSS Grid for layouts
 - No emojis in UI
+
+## Code Style
+- Always document non-obvious logic changes with comments

@@ -104,16 +104,17 @@ export default {
 .filters-bar {
   background: #f8fafc;
   border-bottom: 1px solid #e2e8f0;
-  padding: 0.75rem 0;
+  padding: var(--space-3) 0;
+  /* Sticks to the top of the scrolling .content column (no top bar anymore) */
   position: sticky;
-  top: 70px;
-  z-index: 90;
+  top: 0;
+  z-index: var(--z-sidebar);
 }
 
 .filters-container {
-  max-width: 1600px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--page-padding);
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -124,6 +125,8 @@ export default {
   align-items: center;
   gap: 1rem;
   flex: 1;
+  /* Wrap so four filters fit narrower content columns and phones */
+  flex-wrap: wrap;
 }
 
 .filter-group {
